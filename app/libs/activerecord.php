@@ -6,6 +6,8 @@ abstract class Libs_ActiveRecord
 	const MATCH_IN_NATURAL_LANGUAGE_MODE_WITH_QUERY_EXPANSION = 'IN NATURAL LANGUAGE MODE WITH QUERY EXPANSION';
 	const MATCH_WITH_QUERY_EXPANSION = 'WITH QUERY EXPANSION';
 
+	protected $_db_name = 'default';
+
 	protected $_display_errors = true;
 
 	/**
@@ -40,11 +42,11 @@ abstract class Libs_ActiveRecord
 
 	public function __construct()
 	{
-		if (!self::$_db)
+		if (!isset(self::$_db[$this->_db_name]))
 		{
-			$db_config = Config::getCustom('db_config');
+			$db_config = $this->_getConfig();
 
-			self::$_db = new mysqli(
+			self::$_db[$this->_db_name] = new mysqli(
 				$db_config['host'],
 				$db_config['username'],
 				$db_config['password'],
@@ -52,9 +54,20 @@ abstract class Libs_ActiveRecord
 			);
 		}
 
-		self::$_db->set_charset('utf8');
+		$this->_db()->set_charset('utf8');
 
 		$this->clear();
+	}
+
+	abstract protected function _getConfig();
+
+	/**
+	 * Для создания объекта таблицы одной строкой
+	 * @return Libs_ActiveRecord
+	 */
+	static public function create()
+	{
+		return new static();
 	}
 
 	public function setQueryReturnMode()
@@ -224,9 +237,9 @@ abstract class Libs_ActiveRecord
 		$this->_query_return = false;
 	}
 
-	public function db()
+	private function _db()
 	{
-		return self::$_db;
+		return self::$_db[$this->_db_name];
 	}
 
 	public function setAlias($alias)
@@ -252,7 +265,7 @@ abstract class Libs_ActiveRecord
 
 	public function escape($str)
 	{
-		return self::$_db->escape_string($str);
+		return $this->_db()->escape_string($str);
 	}
 
 	public function limit($param1, $param2 = null)
@@ -319,7 +332,7 @@ abstract class Libs_ActiveRecord
 
 		$this->clear();
 
-		return self::$_db->affected_rows;
+		return $this->_db()->affected_rows;
 	}
 
 	public function insert(array $data)
@@ -338,7 +351,7 @@ abstract class Libs_ActiveRecord
 
 		$this->clear();
 
-		return $res ? self::$_db->insert_id : false;
+		return $res ? $this->_db()->insert_id : false;
 	}
 
 	public function insertAll(array $data)
@@ -365,7 +378,7 @@ abstract class Libs_ActiveRecord
 
 		$this->clear();
 
-		return self::$_db->affected_rows;
+		return $this->_db()->affected_rows;
 	}
 
 	public function delete($q = null, $value = null)
@@ -387,7 +400,7 @@ abstract class Libs_ActiveRecord
 
 		$this->clear();
 
-		return self::$_db->affected_rows;
+		return $this->_db()->affected_rows;
 	}
 
 	public function getValue($key, $default = false)
@@ -507,12 +520,12 @@ abstract class Libs_ActiveRecord
 	{
 		$this->_last_query = $sql;
 
-		if(!$res = self::$_db->query($sql))
+		if(!$res = $this->_db()->query($sql))
 		{
 			if($this->_display_errors)
 			{
 				//pred(debug_backtrace());
-				die(self::$_db->error);
+				die($this->_db()->error);
 			}
 
 			return false;
