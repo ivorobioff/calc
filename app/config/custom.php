@@ -1,6 +1,6 @@
 <?php
 $path_config = array(
-	'controller' => 'demo',
+	'controller' => 'Demo',
 	'action' => 'show'
 );
 

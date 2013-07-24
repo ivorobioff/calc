@@ -5,8 +5,6 @@ class Libs_Router
 	private $_action_name;
 	private $_params;
 
-	private $_is_test = false;
-
 	public function parse()
 	{
 		$url_path = $_SERVER['REQUEST_URI'];
