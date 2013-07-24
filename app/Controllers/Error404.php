@@ -1,5 +1,5 @@
 <?php
-class Controllers_Error404 extends Controllers
+class Controllers_Error404 extends Controllers_Page
 {
 	public function show()
 	{

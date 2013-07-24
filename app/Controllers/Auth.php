@@ -1,22 +1,7 @@
 <?php
-class Controllers_Auth extends Controllers
+class Controllers_Auth extends Controllers_Page
 {
-	public function page()
-	{
-
-	}
-
-	public function signup()
-	{
-
-	}
-
-	public function signin()
-	{
-
-	}
-
-	public function signout()
+	public function index()
 	{
 
 	}

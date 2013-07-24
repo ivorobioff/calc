@@ -5,6 +5,8 @@ class Libs_Router
 	private $_action_name;
 	private $_params;
 
+	private $_private_controllers = array('index', 'Page');
+
 	public function parse()
 	{
 		$url_path = $_SERVER['REQUEST_URI'];
@@ -37,14 +39,19 @@ class Libs_Router
 
 		if (!isset($url_array[0]))
 		{
-			$path_config = Libs_Config::getCustom('path_config');
-			$controller_name = $path_config['controller'];
-			$this->_action_name = always_set($url_array, 1, always_set($path_config, 'action', 'index'));
+			$default_path = Libs_Config::getCustom('default_path');
+			$controller_name = $default_path['controller'];
+			$this->_action_name = always_set($url_array, 1, always_set($default_path, 'action', 'index'));
 		}
 		else
 		{
 			$controller_name = $url_array[0];
 			$this->_action_name = always_set($url_array, 1, 'index');
+		}
+
+		if (in_array($controller_name, $this->_private_controllers))
+		{
+			throw new Libs_Exceptions_Error404();
 		}
 
 		array_shift($url_array);

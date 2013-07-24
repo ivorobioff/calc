@@ -1,9 +1,9 @@
 <html>
 	<head>
-		<title><?=$this->_params['title']?></title>
+		<title><?=$this->escape($this->title)?></title>
 	</head>
 	<body>
 		Layout:<br/>
-		<?=$this->_renderView()?>
+		<?=$this->view->render()?>
 	</body>
 </html>
