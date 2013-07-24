@@ -50,7 +50,7 @@ class Libs_Router
 		$_GET['controller'] = strtolower($controller_name);
 		$_GET['action'] = strtolower($this->_action_name);
 
-		if (!file_exists(APP_DIR.'/controllers/'.$controller_name.'.php'))
+		if (!file_exists(APP_DIR.'/Controllers/'.$controller_name.'.php'))
 		{
 			throw new Libs_Exceptions_Error404();
 		}
