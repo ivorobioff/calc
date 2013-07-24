@@ -5,7 +5,7 @@ class App_Web
 	{
 		session_start();
 		$this->_registerAutoloader();
-		require_once APP_DIR.'/libs/shortcuts.php';
+		require_once APP_DIR.'/Libs/shortcuts.php';
 
 		$router = new Libs_Router();
 		try
@@ -23,7 +23,7 @@ class App_Web
 
 	private function _registerAutoloader()
 	{
-		require_once APP_DIR.'/libs/autoloader.php';
-		spl_autoload_register('Libs_Autoloader::run');
+		require_once APP_DIR.'/Libs/Autoloader.php';
+		spl_autoload_register(array(new Libs_Autoloader(), 'parse'));
 	}
 }

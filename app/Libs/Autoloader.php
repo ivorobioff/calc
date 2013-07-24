@@ -3,12 +3,6 @@ class Libs_Autoloader
 {
 	private $_reserved_prefixes = array('Libs', 'Controllers', 'Models', 'Db', 'Tests');
 
-	static public function run($class)
-	{
-		$obj = new static();
-		$obj->parse($class);
-	}
-
 	public function parse($class)
 	{
 		$vendor = '/vendor/';
