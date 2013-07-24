@@ -1,5 +1,5 @@
 <?php
-class Config
+class Libs_Config
 {
 	static function getCustom($var)
 	{

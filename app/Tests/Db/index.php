@@ -5,6 +5,6 @@ abstract class Tests_Db extends Libs_ActiveRecord
 
 	protected function _getConfig()
 	{
-		return Config::getCustom('test_db');
+		return Libs_Config::getCustom('test_db');
 	}
 }

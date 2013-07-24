@@ -37,7 +37,7 @@ class Libs_Router
 			return ;
 		}
 
-		$path_config = Config::getCustom('path_config');
+		$path_config = Libs_Config::getCustom('path_config');
 		$controller_name = always_set($url_array, 0,  $path_config['controller']);
 		$this->_action_name = always_set($url_array, 1,  $path_config['action']);
 

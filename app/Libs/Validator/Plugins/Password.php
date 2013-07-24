@@ -1,5 +1,5 @@
 <?php
-class Libs_Validator_Plugins_Password extends Libs_Validator_Plugins_Abstract
+class Libs_Validator_Plugins_Password extends Libs_Validator_Plugins
 {
 	private $_pass;
 	private $_confirm_pass;

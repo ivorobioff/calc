@@ -1,7 +1,7 @@
 <?php
 class Libs_Autoloader
 {
-	private $_reserved_prefixes = array('Libs', 'Config', 'Controllers', 'Models', 'Db', 'Tests');
+	private $_reserved_prefixes = array('Libs', 'Controllers', 'Models', 'Db', 'Tests');
 
 	static public function run($class)
 	{
@@ -15,7 +15,7 @@ class Libs_Autoloader
 		$prefix = $this->_getClassPrefix($class);
 		if (in_array($prefix, $this->_reserved_prefixes)) $vendor = '/';
 
-		$file = APP_DIR.$vendor.strtolower(str_replace('_', '/', $class.'.php'));
+		$file = APP_DIR.$vendor.str_replace('_', '/', $class.'.php');
 
 		if (!file_exists($file))
 		{
