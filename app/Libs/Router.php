@@ -53,8 +53,8 @@ class Libs_Router
 		$this->_params = $url_array;
 
 		$_GET = array_merge($_GET, $url_query_array);
-		$_GET['controller'] = strtolower($controller_name);
-		$_GET['action'] = strtolower($this->_action_name);
+		$_GET['controller'] = $controller_name;
+		$_GET['action'] = $this->_action_name;
 
 		if (!file_exists(APP_DIR.'/Controllers/'.$controller_name.'.php'))
 		{
