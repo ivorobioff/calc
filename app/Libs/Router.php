@@ -28,7 +28,7 @@ class Libs_Router
 			$url_array = explode('/', $url_path);
 		}
 
-		if (always_set($url_array, 0, '') == 'test')
+		if (strtolower(always_set($url_array, 0, '')) == 'test')
 		{
 			$test_controller_class = 'Controllers_Test';
 			$this->_controller_object = new $test_controller_class('Tests_'.always_set($url_array, 1));
