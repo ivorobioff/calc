@@ -19,9 +19,9 @@ function _t($alias)
 	return always_set($i18n, $alias, $alias);
 }
 
-function _url($url)
+function _url($controller, $action)
 {
-	return $url;
+	return '/'.$controller.'/'.$action.'/';
 }
 
 function always_set($array, $key, $default = null)
