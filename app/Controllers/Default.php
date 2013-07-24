@@ -1,9 +1,9 @@
 <?php
-class Controllers_Demo extends Controllers
+class Controllers_Default extends Controllers
 {
 	protected $_title = 'Demo';
 
-	public function show()
+	public function index()
 	{
 		$this->_view->render('view.phtml');
 	}

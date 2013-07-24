@@ -35,9 +35,17 @@ class Libs_Router
 			return ;
 		}
 
-		$path_config = Libs_Config::getCustom('path_config');
-		$controller_name = always_set($url_array, 0,  $path_config['controller']);
-		$this->_action_name = always_set($url_array, 1,  $path_config['action']);
+		if (!isset($url_array[0]))
+		{
+			$path_config = Libs_Config::getCustom('path_config');
+			$controller_name = $path_config['controller'];
+			$this->_action_name = always_set($url_array, 1, always_set($path_config, 'action', 'index'));
+		}
+		else
+		{
+			$controller_name = $url_array[0];
+			$this->_action_name = always_set($url_array, 1, 'index');
+		}
 
 		array_shift($url_array);
 		array_shift($url_array);

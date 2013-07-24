@@ -1,8 +1,5 @@
 <?php
-$path_config = array(
-	'controller' => 'Demo',
-	'action' => 'show'
-);
+$path_config = array('controller' => 'Default');
 
 $db_config = array(
 	'host' => 'localhost',
