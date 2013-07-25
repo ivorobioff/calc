@@ -1,0 +1,17 @@
+<div>
+<h2>Sign-up</h2>
+<form action="/Auth/signup/" id="single-form">
+	ФИО: <input type="text" name="fio" /><br/>
+	E-mail: <input type="text" name="email" /><br/>
+	Пароль: <input type="password" type="password" name="password" /><br />
+	Подтвердить пароль: <input type="password" type="password" name="conf_password" /><br />
+	<br/>
+	<br/>
+	<input type="submit" value="Submit" />
+</form>
+</div>
+<script type="text/javascript">
+	$(function(){
+		new Views.SignupForm('<?=_url('Default');?>');
+	})
+</script>

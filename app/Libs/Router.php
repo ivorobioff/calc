@@ -1,11 +1,9 @@
 <?php
 class Libs_Router
 {
-	private $_controller_object;
-	private $_action_name;
+	private $_controller_class;
+	private $_action_method;
 	private $_params;
-
-	private $_private_controllers = array('index', 'Page');
 
 	public function parse()
 	{
@@ -30,10 +28,9 @@ class Libs_Router
 
 		if (strtolower(always_set($url_array, 0, '')) == 'test')
 		{
-			$test_controller_class = 'Controllers_Test';
-			$this->_controller_object = new $test_controller_class('Tests_'.always_set($url_array, 1));
-			$this->_action_name = 'run';
-			$this->_params = array();
+			$this->_controller_class = 'Controllers_Test';
+			$this->_action_method = 'run';
+			$this->_params = 'Tests_'.always_set($url_array, 1);
 			return ;
 		}
 
@@ -41,18 +38,14 @@ class Libs_Router
 		{
 			$default_path = Libs_Config::getCustom('default_path');
 			$controller_name = $default_path['controller'];
-			$this->_action_name = always_set($url_array, 1, always_set($default_path, 'action', 'index'));
+			$this->_action_method = always_set($url_array, 1, always_set($default_path, 'action', 'index'));
 		}
 		else
 		{
 			$controller_name = $url_array[0];
-			$this->_action_name = always_set($url_array, 1, 'index');
+			$this->_action_method = always_set($url_array, 1, 'index');
 		}
 
-		if (in_array($controller_name, $this->_private_controllers))
-		{
-			throw new Libs_Exceptions_Error404();
-		}
 
 		array_shift($url_array);
 		array_shift($url_array);
@@ -61,36 +54,40 @@ class Libs_Router
 
 		$_GET = array_merge($_GET, $url_query_array);
 		$_GET['controller'] = $controller_name;
-		$_GET['action'] = $this->_action_name;
+		$_GET['action'] = $this->_action_method;
 
 		if (!file_exists(APP_DIR.'/Controllers/'.$controller_name.'.php'))
 		{
 			throw new Libs_Exceptions_Error404();
 		}
 
-		$controller_class = 'Controllers_'.$controller_name;
+		$this->_controller_class = 'Controllers_'.$controller_name;
 
-		if (!class_exists($controller_class))
+		if (!class_exists($this->_controller_class))
 		{
 			throw new Libs_Exceptions_Error404();
 		}
 
-		$this->_controller_object = new $controller_class();
+		$reflection = new ReflectionClass($this->_controller_class);
+		if (!$reflection->isInstantiable())
+		{
+			throw new Libs_Exceptions_Error404();
+		}
 
-		if (!method_exists($this->_controller_object, $this->_action_name))
+		if (!$reflection->hasMethod($this->_action_method))
 		{
 			throw new Libs_Exceptions_Error404();
 		}
 	}
 
-	public function getControllerObject()
+	public function getControllerClass()
 	{
-		return $this->_controller_object;
+		return $this->_controller_class;
 	}
 
-	public function getActionName()
+	public function getActionMethod()
 	{
-		return $this->_action_name;
+		return $this->_action_method;
 	}
 
 	public function getParams()

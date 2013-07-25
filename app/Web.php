@@ -18,7 +18,9 @@ class App_Web
 			return $error404->show();
 		}
 
-		$router->getControllerObject()->{$router->getActionName()}($router->getParams());
+		$controller_class = $router->getControllerClass();
+		$controller = new $controller_class();
+		$controller->{$router->getActionMethod()}($router->getParams());
 	}
 
 	private function _registerAutoloader()

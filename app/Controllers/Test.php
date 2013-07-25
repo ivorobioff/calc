@@ -5,21 +5,14 @@
  */
 class Controllers_Test
 {
-	private $_class_name;
-
-	public function __construct($class_name)
+	public function run($class_name)
 	{
-		$this->_class_name = $class_name;
-	}
-
-	public function run()
-	{
-		if (!class_exists($this->_class_name)) return ;
+		if (!class_exists($class_name)) return ;
 
 		$suite = new PHPUnit_Framework_TestSuite();
-		$suite->setName($this->_class_name);
+		$suite->setName($class_name);
 
-		$suite->addTestSuite($this->_class_name);
+		$suite->addTestSuite($class_name);
 
 		$listener = new PHPUnit_Util_Log_TAP();
 

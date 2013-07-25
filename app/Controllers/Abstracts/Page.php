@@ -1,5 +1,5 @@
 <?php
-abstract class Controllers_Page extends Controllers
+abstract class Controllers_Abstracts_Page extends Controllers_Abstracts
 {
 	/**
 	 * @var Libs_Views
@@ -12,7 +12,7 @@ abstract class Controllers_Page extends Controllers
 		$this->_layout = Libs_Views::create('layout.phtml');
 	}
 
-	protected function renderPage(Libs_Views $view)
+	protected function render(Libs_Views $view)
 	{
 		$this->_layout
 			->assign('view', $view)

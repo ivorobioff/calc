@@ -1,5 +1,5 @@
 <?php
-$default_path = array('controller' => 'Default');
+$default_path = array('controller' => 'Auth');
 
 $db_config = array(
 	'host' => 'localhost',
