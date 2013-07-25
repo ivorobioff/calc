@@ -19,9 +19,9 @@ function _t($alias)
 	return always_set($i18n, $alias, $alias);
 }
 
-function _url($controller, $action = false)
+function _url($path)
 {
-	return '/'.$controller.'/'.($action ? ($action.'/') : '');
+	return $path;
 }
 
 function always_set($array, $key, $default = null)
@@ -34,9 +34,9 @@ function is_location($controller, $action = 'index')
 	return $controller == $_GET['controller'] && $action == $_GET['action'];
 }
 
-function redirect($url)
+function redirect($path)
 {
-	header('location: '.$url);
+	header('location: '._url($path));
 	exit();
 }
 
