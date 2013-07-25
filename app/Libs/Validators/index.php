@@ -2,7 +2,7 @@
 class Libs_Validators
 {
 	/**
-	 * @return Libs_Validator_Plugins_Email
+	 * @return Libs_Validators_Plugins_Email
 	 */
 	static public function getEmailValidator()
 	{
@@ -10,7 +10,7 @@ class Libs_Validators
 	}
 
 	/**
-	 * @return Libs_Validator_Plugins_Password
+	 * @return Libs_Validators_Plugins_Password
 	 */
 	static public function getPasswordValidator()
 	{
@@ -18,7 +18,7 @@ class Libs_Validators
 	}
 
 	/**
-	 * @return Libs_Validator_Plugins_Setness
+	 * @return Libs_Validators_Plugins_Setness
 	 */
 	static public function getSetnessValidator()
 	{

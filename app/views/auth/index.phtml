@@ -1,10 +1,23 @@
 <div>
+<h2>Sign-in</h2>
+<form action="/AuthProcessor/signin/" id="signin-form" method="POST">
+E-mail: <input type="text" name="email" /><br/>
+Пароль: <input type="password" type="password" name="pass" /><br />
+<br />
+<label><input type="checkbox" name="remember_me" value="1" /> Запомнить меня</label>
+<br/>
+<br/>
+<input type="submit" value="Submit" />
+</form>
+</div>
+<hr/>
+<div>
 <h2>Sign-up</h2>
-<form action="/Auth/signup/" id="single-form">
+<form action="/AuthProcessor/signup/" id="single-form">
 	ФИО: <input type="text" name="fio" /><br/>
 	E-mail: <input type="text" name="email" /><br/>
-	Пароль: <input type="password" type="password" name="password" /><br />
-	Подтвердить пароль: <input type="password" type="password" name="conf_password" /><br />
+	Пароль: <input type="password" type="password" name="pass" /><br />
+	Подтвердить пароль: <input type="password" type="password" name="conf_pass" /><br />
 	<br/>
 	<br/>
 	<input type="submit" value="Submit" />

@@ -8,7 +8,7 @@ class Libs_Validators_Plugins_Password extends Libs_Validators_Plugins
 
 	public function checkLength()
 	{
-		return strlen($this->_pass) == $this->_pass_length;
+		return strlen($this->_pass) >= $this->_pass_length;
 	}
 
 	public function checkIfEqual()

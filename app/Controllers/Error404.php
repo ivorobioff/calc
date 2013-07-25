@@ -1,5 +1,5 @@
 <?php
-class Controllers_Error404 extends Controllers_Abstracts_Page
+class Controllers_Error404 extends Libs_Controllers_Page
 {
 	public function show()
 	{

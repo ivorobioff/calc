@@ -23,7 +23,7 @@ class Libs_Validators_Plugins_Setness extends Libs_Validators_Plugins
 
 		foreach ($this->_required_fields as $item)
 		{
-			if (!isset($this->_fields[$item])) return false;
+			if ($this->_isEmpty($item)) return false;
 		}
 
 		return true;
@@ -37,9 +37,15 @@ class Libs_Validators_Plugins_Setness extends Libs_Validators_Plugins
 
 		foreach ($this->_required_fields as $item)
 		{
-			if (!isset($this->_fields[$item])) $fields[] = $item;
+			if ($this->_isEmpty($item)) $fields[] = $item;
 		}
 
 		return $fields;
+	}
+
+	private function _isEmpty($item)
+	{
+		$item = trim($this->_fields[$item]);
+		return empty($item);
 	}
 }

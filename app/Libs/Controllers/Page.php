@@ -1,5 +1,5 @@
 <?php
-abstract class Controllers_Abstracts_Page extends Controllers_Abstracts
+abstract class Libs_Controllers_Page
 {
 	/**
 	 * @var Libs_Views

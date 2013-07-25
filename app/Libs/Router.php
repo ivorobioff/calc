@@ -69,6 +69,7 @@ class Libs_Router
 		}
 
 		$reflection = new ReflectionClass($this->_controller_class);
+
 		if (!$reflection->isInstantiable())
 		{
 			throw new Libs_Exceptions_Error404();

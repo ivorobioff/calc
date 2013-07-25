@@ -29,18 +29,9 @@ function always_set($array, $key, $default = null)
 	return isset($array[$key]) ? $array[$key] : $default;
 }
 
-function is_location($url)
+function is_location($controller, $action = 'index')
 {
-	$url = trim($url, '/');
-	$url = explode('/', $url);
-
-	return $url[0] == $_GET['controller'] && $url[1] == $_GET['action'];
-}
-
-function is_ajax()
-{
-	return isset($_SERVER['HTTP_X_REQUESTED_WITH'])
-		&& strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
+	return $controller == $_GET['controller'] && $action == $_GET['action'];
 }
 
 function redirect($url)
