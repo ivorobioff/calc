@@ -39,3 +39,8 @@ function redirect($url)
 	header('location: '.$url);
 	exit();
 }
+
+function is_auth()
+{
+	return Models_CurrentUser::getInstance()->isAuth();
+}

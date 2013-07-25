@@ -1,5 +1,5 @@
 <?php
-abstract class Libs_Controllers_Page
+abstract class Libs_Controllers_Page extends Libs_Controllers
 {
 	/**
 	 * @var Libs_Views
@@ -9,6 +9,13 @@ abstract class Libs_Controllers_Page
 
 	public function __construct()
 	{
+		parent::__construct();
+
+		if (!$this->_checkAuth())
+		{
+			redirect(_url('Auth'));
+		}
+
 		$this->_layout = Libs_Views::create('layout.phtml');
 	}
 

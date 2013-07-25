@@ -65,9 +65,16 @@ abstract class Libs_ActiveRecord
 	 * Для создания объекта таблицы одной строкой
 	 * @return Libs_ActiveRecord
 	 */
-	static public function create()
+	static public function create($alias = null)
 	{
-		return new static();
+		$table = new static();
+
+		if (!is_null($alias))
+		{
+			$table->setAlias($alias);
+		}
+
+		return $table;
 	}
 
 	public function setQueryReturnMode()

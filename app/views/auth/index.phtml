@@ -1,5 +1,14 @@
 <div>
 <h2>Sign-in</h2>
+<?php
+if ($this->login_form_errors)
+{
+	foreach ($this->login_form_errors as $field => $error)
+	{
+		echo '<span style="color: red">'.$field.': '.$error.'</span><br/>';
+	}
+}
+?>
 <form action="/AuthProcessor/signin/" id="signin-form" method="POST">
 E-mail: <input type="text" name="email" /><br/>
 Пароль: <input type="password" type="password" name="pass" /><br />
