@@ -9,42 +9,42 @@ class Controllers_AuthProcessor extends Libs_Controllers_Processor
 				->setEmail($_POST['email'])
 				->verify())
 		{
-			$_SESSION['login_form_errors']['email'] = 'Не верный формат e-mail';
-			redirect(_url('Auth'));
+			$_SESSION['login_form_errors']['email'] = _t('/auth/validator/wrong_email_format');
+			redirect('/Auth/');
 		}
 
 		if (!Libs_Validators::getPasswordValidator()
 				->setPass($_POST['pass'])
 				->checkLength())
 		{
-			$_SESSION['login_form_errors']['pass'] = 'Не верная длина пароля';
-			redirect(_url('Auth'));
+			$_SESSION['login_form_errors']['pass'] = _t('/auth/validator/wrong_pass_length');
+			redirect('/Auth/');
 		}
 
 		$model = new Models_Auth();
 
 		if (!$data = $model->getUserByCredentials($_POST['email'], $_POST['pass']))
 		{
-			$_SESSION['login_form_errors']['email'] = 'Пользователь не найден';
-			redirect(_url('Auth'));
+			$_SESSION['login_form_errors']['email'] = _t('/auth/validator/no_user');
+			redirect('/Auth/');
 		}
 
 		Models_CurrentUser::getInstance()->login($data, isset($_POST['remember_me']));
 
-		redirect(_url('Default'));
+		redirect('/Default/');
 	}
 
 	public function signout()
 	{
 		Models_CurrentUser::getInstance()->logout();
-		redirect(_url('Auth'));
+		redirect('/Auth/');
 	}
 
 	public function signup()
 	{
 		if (!$this->isAjax())
 		{
-			redirect(_url('Auth'));
+			redirect('/Auth/');
 		}
 
 		$missing_fields = Libs_Validators::getSetnessValidator()
@@ -66,7 +66,7 @@ class Controllers_AuthProcessor extends Libs_Controllers_Processor
 				->setEmail($_POST['email'])
 				->verify())
 		{
-			return $this->ajaxError(array('email' => 'Не верный формат e-mail'));
+			return $this->ajaxError(array('email' => _t('/auth/validator/wrong_email_format')));
 		}
 
 		$pass_validator = Libs_Validators::getPasswordValidator()
@@ -75,24 +75,24 @@ class Controllers_AuthProcessor extends Libs_Controllers_Processor
 
 		if (!$pass_validator->checkLength())
 		{
-			return $this->ajaxError(array('pass' => 'Не верная длина пароля'));
+			return $this->ajaxError(array('pass' => _t('/auth/validator/wrong_pass_length')));
 		}
 
 		if (!$pass_validator->checkIfEqual())
 		{
-			return $this->ajaxError(array('pass' => 'Пароли разные'));
+			return $this->ajaxError(array('pass' => _t('/auth/validator/diff_passes')));
 		}
 
 		$model = new Models_Auth();
 
 		if ($model->checkEmail($_POST['email']))
 		{
-			return $this->ajaxError(array('email' => 'Пользователь уже зарегестрирован'));
+			return $this->ajaxError(array('email' => _t('/auth/validator/user_exists')));
 		}
 
 		if (!$user_id = $model->addUser($_POST))
 		{
-			return $this->ajaxError(array('message' => 'Не удалось зарегестрироваться'));
+			return $this->ajaxError(array('message' => _t('/auth/validator/cannot_register')));
 		}
 
 		Models_CurrentUser::getInstance()->login($model->getUserById($user_id));

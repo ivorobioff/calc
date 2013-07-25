@@ -13,7 +13,7 @@ abstract class Libs_Controllers_Page extends Libs_Controllers
 
 		if (!$this->_checkAuth())
 		{
-			redirect(_url('Auth'));
+			redirect('/Auth/');
 		}
 
 		$this->_layout = Libs_Views::create('layout.phtml');

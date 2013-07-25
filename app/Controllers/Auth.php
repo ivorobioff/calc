@@ -7,7 +7,7 @@ class Controllers_Auth extends Libs_Controllers_Page
 	{
 		if (is_auth())
 		{
-			redirect(_url('Default'));
+			redirect('/Default/');
 		}
 
 		if ($hashed_id = always_set($_COOKIE, 'remember_me', false))

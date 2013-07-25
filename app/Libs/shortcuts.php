@@ -14,8 +14,9 @@ function pred($str)
 
 function _t($alias)
 {
-	include APP_DIR.'/i18n/ru.php';
+	$alias = '/'.trim($alias, '/');
 
+	include APP_DIR.'/i18n/ru.php';
 	return always_set($i18n, $alias, $alias);
 }
 
