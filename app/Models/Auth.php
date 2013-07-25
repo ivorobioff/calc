@@ -39,7 +39,7 @@ class Models_Auth
 
 	public function getUserByHashedId($id)
 	{
-		return $this->_table->fetchOne('MD5(u.id)', $id);
+		return $this->_table->fetchOne('MD5(id)', $id);
 	}
 
 	public function getUserById($id)
