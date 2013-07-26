@@ -2,6 +2,7 @@
 class Controllers_AuthProcessor extends Libs_Controllers_Processor
 {
 	protected $_require_auth = false;
+	protected $_ajax_exceptions = array('signin', 'signout');
 
 	public function signin()
 	{
@@ -42,11 +43,6 @@ class Controllers_AuthProcessor extends Libs_Controllers_Processor
 
 	public function signup()
 	{
-		if (!$this->isAjax())
-		{
-			redirect('/Auth/');
-		}
-
 		$missing_fields = Libs_Validators::getSetnessValidator()
 			->setRequiredFields(array('fio', 'email', 'pass', 'conf_pass'))
 			->setFields($_POST)

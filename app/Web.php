@@ -11,16 +11,16 @@ class App_Web
 		try
 		{
 			$router->parse();
+
+			$controller_class = $router->getControllerClass();
+			$controller = new $controller_class();
+			$controller->{$router->getActionMethod()}($router->getParams());
 		}
 		catch (Libs_Exceptions_Error404 $ex)
 		{
 			$error404 = new Controllers_Error404();
 			return $error404->show();
 		}
-
-		$controller_class = $router->getControllerClass();
-		$controller = new $controller_class();
-		$controller->{$router->getActionMethod()}($router->getParams());
 	}
 
 	private function _registerAutoloader()
